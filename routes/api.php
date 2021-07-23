@@ -25,5 +25,11 @@ Route::group([
     ], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
+        Route::get('noticias', 'NoticiaController@noticias');
+        Route::post('noticias', 'NoticiaController@create');
+        Route::post('noticias/{id}', 'NoticiaController@edit');
+        Route::delete('noticias/{id}', 'NoticiaController@delete');
+
+
     });
 });
