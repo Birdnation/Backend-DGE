@@ -17,6 +17,7 @@ class CreateNoticiasTable extends Migration
             $table->id();
 
             $table->string('titulo');
+            $table->string('subtitulo');
             $table->longText('cuerpo');
             $table->string('imagen');
             $table->string('desc-img');

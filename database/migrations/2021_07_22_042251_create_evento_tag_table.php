@@ -16,6 +16,12 @@ class CreateEventoTagTable extends Migration
         Schema::create('evento_tag', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+
+            $table->unsignedBigInteger('tag_id');
+            $table->unsignedBigInteger('evento_id');
+
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
+            $table->foreign('evento_id')->references('id')->on('eventos')->onDelete('cascade');
         });
     }
 

@@ -18,17 +18,23 @@ Route::group([
     'prefix' => 'v1'
 ], function () {
     Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signUp');
+    Route::get('noticias', 'NoticiaController@noticias');
+
 
     Route::group([
       'middleware' => 'auth:api'
     ], function() {
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
-        Route::get('noticias', 'NoticiaController@noticias');
+
+
+        Route::get('noticias/{id}', 'NoticiaController@noticia');
         Route::post('noticias', 'NoticiaController@create');
         Route::post('noticias/{id}', 'NoticiaController@edit');
         Route::delete('noticias/{id}', 'NoticiaController@delete');
+
+        Route::get('areas', 'AreaController@areas');
+        Route::get('tags', 'TagController@tags');
 
 
     });

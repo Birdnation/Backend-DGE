@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Area;
 use App\Models\Noticia;
+use App\Models\Tag;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class NoticiaController extends Controller
@@ -12,8 +15,10 @@ class NoticiaController extends Controller
      */
     public function create(Request $request)
     {
+
         $request->validate([
             'titulo' => 'required|string',
+            'subtitulo' => 'required|string',
             'cuerpo' => 'required',
             'imagen' => 'required|file|mimes:jpg,png,jpeg',
             'descImg' => 'required|string',
@@ -27,12 +32,22 @@ class NoticiaController extends Controller
             $finalPath = "/storage/noticias/" . $newPath;
         };
 
-        Noticia::create([
+        $noticia = Noticia::create([
             'titulo' => $request->titulo,
+            'subtitulo' => $request->subtitulo,
             'cuerpo' => $request->cuerpo,
             'imagen' => $finalPath,
             'desc-img' => $request->descImg,
+            'user_id' => $request->user_id,
+            'area_id' => $request->area_id,
         ]);
+
+        if ($request->tag) {
+            foreach ($request->tag as $key => $value) {
+                $tag = Tag::where('name', $value)->firstOrFail();
+                $noticia->tags()->save($tag);
+            }
+        }
 
         return response()->json([
             'mensaje' => 'noticia creada'
@@ -83,7 +98,13 @@ class NoticiaController extends Controller
     }
 
     public function noticias () {
-        return response()->json(Noticia::all());
+        $noticias = Noticia::with('user')->with('area')->with('tags')->orderBy('id', 'DESC')->simplePaginate(10);
+        return response()->json($noticias);
+    }
+
+    public function noticia ($id) {
+        $noticia = Noticia::where('id', $id)->firstOrFail();
+        return response()->json($noticia);
     }
 
     public function delete ($id) {
