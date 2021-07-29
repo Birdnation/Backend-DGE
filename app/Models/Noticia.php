@@ -14,10 +14,14 @@ class Noticia extends Model
         'subtitulo',
         'cuerpo',
         'imagen',
-        'desc-img',
+        'desc_img',
         'area_id',
         'user_id',
+        'links',
+    ];
 
+    protected $casts = [
+        'links' => 'array',
     ];
 
     public function user(){

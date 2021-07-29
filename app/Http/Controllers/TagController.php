@@ -9,7 +9,7 @@ class TagController extends Controller
 {
     public function tags () {
         $tags = Tag::all();
-        return response()->json($tags->reverse()->values());
+        return response()->json($tags->values());
 
     }
 }

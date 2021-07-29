@@ -20,15 +20,13 @@ class CreateNoticiasTable extends Migration
             $table->string('subtitulo');
             $table->longText('cuerpo');
             $table->string('imagen');
-            $table->string('desc-img');
+            $table->string('desc_img');
+            $table->json('links'); //arreglo de links
             $table->unsignedBigInteger('area_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
             $table->foreign('area_id')->references('id')->on('areas')->onDelete('set null');
-
-
-
             $table->timestamps();
         });
     }

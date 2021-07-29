@@ -14,28 +14,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+/**
+ * Rutas API V1
+ */
 Route::group([
     'prefix' => 'v1'
 ], function () {
+    /**
+     * Rutas Publicas sin token
+     */
     Route::post('login', 'AuthController@login');
+
     Route::get('noticias', 'NoticiaController@noticias');
+    Route::get('noticias/{id}', 'NoticiaController@noticia');
+
+    Route::get('areas', 'AreaController@areas');
+
+    Route::get('tags', 'TagController@tags');
 
 
+    /**
+     * Rutas privadas con token
+     */
     Route::group([
       'middleware' => 'auth:api'
     ], function() {
+
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
 
 
-        Route::get('noticias/{id}', 'NoticiaController@noticia');
         Route::post('noticias', 'NoticiaController@create');
         Route::post('noticias/{id}', 'NoticiaController@edit');
         Route::delete('noticias/{id}', 'NoticiaController@delete');
-
-        Route::get('areas', 'AreaController@areas');
-        Route::get('tags', 'TagController@tags');
-
-
     });
 });
