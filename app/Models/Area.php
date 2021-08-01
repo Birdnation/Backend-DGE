@@ -16,4 +16,8 @@ class Area extends Model
     public function noticias(){
         return $this->hasMany('App\Models\Noticia');
     }
+
+    public function eventos(){
+        return $this->hasMany('App\Models\Evento');
+    }
 }

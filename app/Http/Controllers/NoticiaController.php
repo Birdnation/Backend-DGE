@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Area;
 use App\Models\Noticia;
 use App\Models\Tag;
-use App\Models\User;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class NoticiaController extends Controller
@@ -104,7 +102,7 @@ class NoticiaController extends Controller
         }
 
         //editar descripcion imagen
-        if ($request->titulo) {
+        if ($request->descImg) {
                 $request->validate([
                 'descImg' => 'required|string',
             ]);

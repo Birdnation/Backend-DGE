@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+ Route::get('prueba', 'AreaController@prueba');
 /**
  * Rutas API V1
  */
@@ -23,6 +23,7 @@ Route::group([
     /**
      * Rutas Publicas sin token
      */
+
     Route::post('login', 'AuthController@login');
 
     Route::get('noticias', 'NoticiaController@noticias');
@@ -31,6 +32,9 @@ Route::group([
     Route::get('areas', 'AreaController@areas');
 
     Route::get('tags', 'TagController@tags');
+
+    Route::get('eventos', 'EventoController@eventos');
+    Route::get('eventos/{id}', "eventoController@evento");
 
 
     /**
@@ -47,5 +51,11 @@ Route::group([
         Route::post('noticias', 'NoticiaController@create');
         Route::post('noticias/{id}', 'NoticiaController@edit');
         Route::delete('noticias/{id}', 'NoticiaController@delete');
+
+
+        Route::post('eventos', 'EventoController@create');
+        Route::post('eventos/{id}', 'EventoController@edit');
+        Route::delete('eventos/{id}', 'EventoController@delete');
+
     });
 });

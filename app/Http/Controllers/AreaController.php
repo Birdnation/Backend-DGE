@@ -13,4 +13,8 @@ class AreaController extends Controller
         return response()->json($areas->reverse()->values());
     }
 
+    public function prueba() {
+        return response()->json(["gola"]);
+    }
+
 }

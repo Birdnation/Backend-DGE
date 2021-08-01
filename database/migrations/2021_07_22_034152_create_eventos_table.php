@@ -21,8 +21,8 @@ class CreateEventosTable extends Migration
             $table->string('imagen')->nullable();
             $table->string('desc_imagen')->nullable();
             $table->string('color');
-            $table->date('inicio');
-            $table->date('fin')->nullable();
+            $table->string('inicio')->nullable();
+            $table->string('fin');
 
             $table->unsignedBigInteger('area_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
