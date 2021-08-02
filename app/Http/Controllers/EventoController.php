@@ -21,8 +21,8 @@ class EventoController extends Controller
             'descImg' => 'string|nullable',
             'area_id' => 'required|exists:App\Models\Area,id',
             'user_id' => 'exists:App\Models\User,id',
-            'inicio' => 'required|date|after:today',
-            'fin' => 'required|date|after:inicio'
+            'inicio' => 'required|date|after_or_equal:today',
+            'fin' => 'required|date|after_or_equal:inicio'
         ]);
         }else {
             $request->validate([
@@ -31,7 +31,7 @@ class EventoController extends Controller
             'descImg' => 'nullable|string',
             'area_id' => 'required|exists:App\Models\Area,id',
             'user_id' => 'exists:App\Models\User,id',
-            'fin' => 'required|date|after:today'
+            'fin' => 'required|date|after_or_equal:today'
         ]);
         }
 
@@ -102,14 +102,18 @@ class EventoController extends Controller
     public function eventos (Request $request) {
         if ($request->area) {
             $area = Area::where('name', $request->area)->firstOrFail();
-            $eventos = Evento::where('area_id', $area->id)->with("area")->orderBy('id', 'DESC')->simplePaginate(10);
+            $eventos = Evento::where('area_id', $area->id)->with("area")->orderBy('id', 'DESC')->get();
             return response()->json($eventos);
         }else if ($request->tag) {
             $tag = Tag::where('name', $request->tag)->firstOrFail();
-            $eventos = $tag->eventos()->with("area")->with('tags')->orderBy('id', 'DESC')->simplePaginate(10);
+            $eventos = $tag->eventos()->with("area")->with('tags')->orderBy('id', 'DESC')->get();
             return response()->json($eventos);
         }
-        $eventos = Evento::with('user')->with('area')->with('tags')->orderBy('id', 'DESC')->simplePaginate(10);
+        if ($request->paginate) {
+            $eventos = Evento::with('user')->with('area')->with('tags')->orderBy('id', 'DESC')->simplePaginate(10);
+        }else {
+            $eventos = Evento::with('user')->with('area')->with('tags')->orderBy('id', 'DESC')->get();
+        }
         return response()->json($eventos);
     }
 
