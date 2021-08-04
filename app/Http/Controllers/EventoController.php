@@ -102,11 +102,11 @@ class EventoController extends Controller
     public function eventos (Request $request) {
         if ($request->area) {
             $area = Area::where('name', $request->area)->firstOrFail();
-            $eventos = Evento::where('area_id', $area->id)->with("area")->orderBy('id', 'DESC')->get();
+            $eventos = Evento::where('area_id', $area->id)->with('user')->with('area')->with('tags')->orderBy('id', 'DESC')->get();
             return response()->json($eventos);
         }else if ($request->tag) {
             $tag = Tag::where('name', $request->tag)->firstOrFail();
-            $eventos = $tag->eventos()->with("area")->with('tags')->orderBy('id', 'DESC')->get();
+            $eventos = $tag->eventos()->with('user')->with('area')->with('tags')->orderBy('id', 'DESC')->get();
             return response()->json($eventos);
         }
         if ($request->paginate) {
