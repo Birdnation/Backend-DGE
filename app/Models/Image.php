@@ -8,9 +8,16 @@ use Illuminate\Support\Facades\Storage;
 
 class Image extends Model
 {
-    protected $fillable = ['path'];
+    use HasFactory;
+
+    protected $fillable = ['path','url','user_id'];
+
 
     public function getUrlPathAttribute(){
         return Storage::url($this->path);
+    }
+
+    public function user(){
+        return $this->belongsTo('App\Models\User');
     }
 }

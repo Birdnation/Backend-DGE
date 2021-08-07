@@ -17,6 +17,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'admin@ucn.cl',
             'rol' => 'Administrador',
             'password' => bcrypt(123456)]);
+        \App\Models\User::create(['name' => 'Coordinador Salud',
+            'email' => 'salud@ucn.cl',
+            'rol' => 'Salud',
+            'password' => bcrypt(123456)]);
+        \App\Models\User::create(['name' => 'Coordinador Deportes',
+            'email' => 'deportes@ucn.cl',
+            'rol' => 'Deportes',
+            'password' => bcrypt(123456)]);
         \App\Models\Area::create(["name" => "Salud"]);
         \App\Models\Area::create(["name" => "Deportes"]);
         \App\Models\Area::create(["name" => "Beneficios"]);

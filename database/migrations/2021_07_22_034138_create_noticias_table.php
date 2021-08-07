@@ -21,7 +21,7 @@ class CreateNoticiasTable extends Migration
             $table->longText('cuerpo');
             $table->string('imagen');
             $table->string('desc_img');
-            $table->json('links'); //arreglo de links
+            $table->json('links')->nullable(); //arreglo de links
             $table->unsignedBigInteger('area_id')->nullable();
             $table->unsignedBigInteger('user_id')->nullable();
 

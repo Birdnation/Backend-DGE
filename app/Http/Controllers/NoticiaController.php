@@ -18,7 +18,7 @@ class NoticiaController extends Controller
         $request->validate([
             'titulo' => 'required|string',
             'subtitulo' => 'required|string',
-            'cuerpo' => 'required',
+            'cuerpo' => 'required|max:1800000',
             'imagen' => 'required|file|mimes:jpg,png,jpeg',
             'descImg' => 'required|string',
             'area_id' => 'exists:App\Models\Area,id',
@@ -32,7 +32,8 @@ class NoticiaController extends Controller
         };
 
 
-        $noticia = Noticia::create([
+        if ($request->links) {
+            $noticia = Noticia::create([
             'titulo' => $request->titulo,
             'subtitulo' => $request->subtitulo,
             'cuerpo' => $request->cuerpo,
@@ -42,6 +43,17 @@ class NoticiaController extends Controller
             'area_id' => $request->area_id,
             'links' => $request->links
         ]);
+        }else {
+            $noticia = Noticia::create([
+            'titulo' => $request->titulo,
+            'subtitulo' => $request->subtitulo,
+            'cuerpo' => $request->cuerpo,
+            'imagen' => $finalPath,
+            'desc_img' => $request->descImg,
+            'user_id' => $request->user_id,
+            'area_id' => $request->area_id,
+        ]);
+        }
 
         if ($request->tag) {
             foreach ($request->tag as $key => $value) {

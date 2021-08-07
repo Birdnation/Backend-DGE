@@ -36,6 +36,8 @@ Route::group([
     Route::get('eventos', 'EventoController@eventos');
     Route::get('eventos/{id}', "eventoController@evento");
 
+    Route::get('anuncios', 'AnuncioController@anuncios');
+
 
     /**
      * Rutas privadas con token
@@ -56,6 +58,13 @@ Route::group([
         Route::post('eventos', 'EventoController@create');
         Route::post('eventos/{id}', 'EventoController@edit');
         Route::delete('eventos/{id}', 'EventoController@delete');
+
+        Route::post('imagenes', "ImageController@create");
+        Route::post('imagenesusuario', "ImageController@imagesByUser");
+
+        Route::post('anuncios', 'AnuncioController@create');
+        Route::post('anuncios/{id}', 'AnuncioController@edit');
+        Route::delete('anuncios/{id}', 'AnuncioController@delete');
 
     });
 });
