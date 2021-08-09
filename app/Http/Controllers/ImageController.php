@@ -15,9 +15,9 @@ class ImageController extends Controller
         ]);
 
         if ($request->hasFile('imagen')) {
-            $path = $request->imagen->store('public/noticias');
-            $newPath = $parameters['imagen'] = substr($path, 16);
-            $finalPath = "/storage/noticias/" . $newPath;
+            $path = $request->imagen->store('public/galeria');
+            $newPath = $parameters['imagen'] = substr($path, 15);
+            $finalPath = "/storage/galeria/" . $newPath;
         };
 
         Image::create([

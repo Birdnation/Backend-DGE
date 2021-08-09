@@ -14,15 +14,14 @@ class AnuncioController extends Controller
         $request->validate([
             'texto' => 'required|max:1800000',
             'area_id' => 'exists:App\Models\Area,id',
-            'inicio' => 'required|date|after_or_equal:today',
-            'fin' => 'required|date|after_or_equal:inicio'
+            'descripcion' => 'required|string'
         ]);
 
         Anuncio::create([
             'texto' => $request->texto,
             'area_id' => $request->area_id,
-            'inicio' => Carbon::parse($request->inicio)->toDateTimeString(),
-            'fin' => Carbon::parse($request->fin)->toDateTimeString(),
+            'descripcion' => $request->descripcion,
+            'activo' => false
         ]);
 
          return response()->json([
@@ -44,15 +43,19 @@ class AnuncioController extends Controller
             ]);
         }
 
-        if ($request->inicio){
+        //editar descripcion
+        if ($request->descripcion) {
+                $request->validate([
+                'descripcion' => 'required|string',
+            ]);
             $anuncio->update([
-                'inicio' => Carbon::parse($request->inicio)->toDateTimeString()
+                'descripcion' => $request->descripcion
             ]);
         }
 
-        if ($request->fin){
+        if ($request->activo) {
             $anuncio->update([
-                'fin' => Carbon::parse($request->fin)->toDateTimeString()
+                'activo' => $request->activo
             ]);
         }
 

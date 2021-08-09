@@ -12,8 +12,8 @@ class Anuncio extends Model
     protected $fillable = [
         'texto',
         'area_id',
-        'inicio',
-        'fin'
+        'activo',
+        'descripcion'
     ];
 
     public function area(){
