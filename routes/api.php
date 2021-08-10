@@ -13,17 +13,58 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
+ Route::get('prueba', 'AreaController@prueba');
+/**
+ * Rutas API V1
+ */
 Route::group([
     'prefix' => 'v1'
 ], function () {
-    Route::post('login', 'AuthController@login');
-    Route::post('signup', 'AuthController@signUp');
+    /**
+     * Rutas Publicas sin token
+     */
 
+    Route::post('login', 'AuthController@login');
+
+    Route::get('noticias', 'NoticiaController@noticias');
+    Route::get('noticias/{id}', 'NoticiaController@noticia');
+
+    Route::get('areas', 'AreaController@areas');
+
+    Route::get('tags', 'TagController@tags');
+
+    Route::get('eventos', 'EventoController@eventos');
+    Route::get('eventos/{id}', "eventoController@evento");
+
+    Route::get('anuncios', 'AnuncioController@anuncios');
+
+
+    /**
+     * Rutas privadas con token
+     */
     Route::group([
       'middleware' => 'auth:api'
     ], function() {
+
         Route::get('logout', 'AuthController@logout');
         Route::get('user', 'AuthController@user');
+
+
+        Route::post('noticias', 'NoticiaController@create');
+        Route::post('noticias/{id}', 'NoticiaController@edit');
+        Route::delete('noticias/{id}', 'NoticiaController@delete');
+
+
+        Route::post('eventos', 'EventoController@create');
+        Route::post('eventos/{id}', 'EventoController@edit');
+        Route::delete('eventos/{id}', 'EventoController@delete');
+
+        Route::post('imagenes', "ImageController@create");
+        Route::post('imagenesusuario', "ImageController@imagesByUser");
+
+        Route::post('anuncios', 'AnuncioController@create');
+        Route::post('anuncios/{id}', 'AnuncioController@edit');
+        Route::delete('anuncios/{id}', 'AnuncioController@delete');
+
     });
 });

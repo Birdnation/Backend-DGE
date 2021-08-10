@@ -17,17 +17,19 @@ class AuthController extends Controller
         $request->validate([
             'name' => 'required|string',
             'email' => 'required|string|email|unique:users',
-            'password' => 'required|string'
+            'password' => 'required|string',
+            'rol' => 'required|string'
         ]);
 
         User::create([
             'name' => $request->name,
             'email' => $request->email,
+            'rol' => $request->rol,
             'password' => bcrypt($request->password)
         ]);
 
         return response()->json([
-            'message' => 'Successfully created user!'
+            'mensaje' => 'Usuario creado',
         ], 201);
     }
 
@@ -46,7 +48,7 @@ class AuthController extends Controller
 
         if (!Auth::attempt($credentials))
             return response()->json([
-                'message' => 'Unauthorized'
+                'mensaje' => 'no autorizado'
             ], 401);
 
         $user = $request->user();
@@ -60,6 +62,7 @@ class AuthController extends Controller
         return response()->json([
             'access_token' => $tokenResult->accessToken,
             'token_type' => 'Bearer',
+            'rol' => $user->rol,
             'expires_at' => Carbon::parse($token->expires_at)->toDateTimeString()
         ]);
     }
@@ -72,7 +75,7 @@ class AuthController extends Controller
         $request->user()->token()->revoke();
 
         return response()->json([
-            'message' => 'Successfully logged out'
+            'mensaje' => 'Desconectado'
         ]);
     }
 
