@@ -176,7 +176,7 @@ class NoticiaController extends Controller
 
     public function noticias (Request $request) {
         if ($request->area) {
-            $area = Area::where('name', $request->area)->firstOrFail();
+            $area = Area::where('name', ucfirst($request->area))->firstOrFail();
             $noticias = Noticia::where('area_id', $area->id)->with("area")->orderBy('id', 'DESC')->simplePaginate(10);
             return response()->json($noticias);
         }else if ($request->tag) {

@@ -52,11 +52,17 @@ class AnuncioController extends Controller
                 'descripcion' => $request->descripcion
             ]);
         }
-
         if ($request->activo) {
-            $anuncio->update([
-                'activo' => $request->activo
+            if ($request->activo === "F") {
+                $anuncio->update([
+                'activo' => false
             ]);
+            } else if ($request->activo === "T") {
+                $anuncio->update([
+                'activo' => true
+            ]);
+            }
+
         }
 
         //editar area
@@ -74,15 +80,9 @@ class AnuncioController extends Controller
         ], 200);
     }
 
-    public function anuncios (Request $request) {
-        if ($request->area) {
-            $area = Area::where('name', $request->area)->firstOrFail();
-            $anuncio = Anuncio::where('area_id', $area->id)->with("area")->orderBy('id', 'DESC')->simplePaginate(10);
-            return response()->json($anuncio);
-        } else {
-            $anuncio = Anuncio::with('area')->orderBy('id', 'DESC')->simplePaginate(10);
-            return response()->json($anuncio);
-        }
+    public function anuncios () {
+        $anuncio = Anuncio::with('area')->orderBy('id', 'DESC')->get();
+        return response()->json($anuncio);
     }
 
     public function delete ($id) {
