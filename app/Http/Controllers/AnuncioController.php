@@ -92,4 +92,9 @@ class AnuncioController extends Controller
             'mensaje' => 'Anuncio eliminado'
         ], 200);
     }
+
+    public function anuncio ($id) {
+        $anuncio = Anuncio::where('id', $id)->with("area")->firstOrFail();
+        return response()->json($anuncio);
+    }
 }

@@ -37,6 +37,7 @@ Route::group([
     Route::get('eventos/{id}', "eventoController@evento");
 
     Route::get('anuncios', 'AnuncioController@anuncios');
+    Route::get('anuncios/{id}', 'AnuncioController@anuncio');
 
 
     /**

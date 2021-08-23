@@ -110,7 +110,7 @@ class EventoController extends Controller
             return response()->json($eventos);
         }
         if ($request->paginate) {
-            $eventos = Evento::with('user')->with('area')->with('tags')->orderBy('id', 'DESC')->simplePaginate(10);
+            $eventos = Evento::with('user')->with('area')->with('tags')->orderBy('id', 'DESC')->Paginate(10);
         }else {
             $eventos = Evento::with('user')->with('area')->with('tags')->orderBy('id', 'DESC')->get();
         }
