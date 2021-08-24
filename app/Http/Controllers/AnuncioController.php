@@ -21,7 +21,7 @@ class AnuncioController extends Controller
             'texto' => $request->texto,
             'area_id' => $request->area_id,
             'descripcion' => $request->descripcion,
-            'activo' => false
+            'activo' => 0
         ]);
 
          return response()->json([
@@ -55,11 +55,11 @@ class AnuncioController extends Controller
         if ($request->activo) {
             if ($request->activo === "F") {
                 $anuncio->update([
-                'activo' => false
+                'activo' => 0
             ]);
             } else if ($request->activo === "T") {
                 $anuncio->update([
-                'activo' => true
+                'activo' => 1
             ]);
             }
 

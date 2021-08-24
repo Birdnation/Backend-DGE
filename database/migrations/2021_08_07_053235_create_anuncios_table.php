@@ -17,7 +17,7 @@ class CreateAnunciosTable extends Migration
             $table->id();
             $table->longText('texto');
             $table->string('descripcion');
-            $table->boolean('activo');
+            $table->tinyInteger('activo');
             $table->timestamps();
 
             $table->unsignedBigInteger('area_id')->nullable();
