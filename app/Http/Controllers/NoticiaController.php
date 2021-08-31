@@ -183,6 +183,9 @@ class NoticiaController extends Controller
             $tag = Tag::where('name', $request->tag)->firstOrFail();
             $noticias = $tag->noticias()->with("area")->with('tags')->orderBy('id', 'DESC')->Paginate(10);
             return response()->json($noticias);
+        }else if ($request->titulo){
+            $newsFilter = Noticia::where('titulo',"LIKE", '%'.$request->titulo."%")->with("area")->with("tags")->orderBy('id', 'DESC')->Paginate(10);
+            return response()->json($newsFilter);
         }
         $noticias = Noticia::with('user')->with('area')->with('tags')->orderBy('id', 'DESC')->Paginate(10);
         return response()->json($noticias);

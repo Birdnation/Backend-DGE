@@ -29,6 +29,8 @@ Route::group([
     Route::get('noticias', 'NoticiaController@noticias');
     Route::get('noticias/{id}', 'NoticiaController@noticia');
 
+
+
     Route::get('areas', 'AreaController@areas');
 
     Route::get('tags', 'TagController@tags');
