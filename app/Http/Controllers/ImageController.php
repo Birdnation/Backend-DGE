@@ -20,14 +20,15 @@ class ImageController extends Controller
             $finalPath = "/storage/galeria/" . $newPath;
         };
 
-        Image::create([
+        $imagen = Image::create([
             'user_id' => $request->user_id,
             'url' => $finalPath
 
         ]);
 
         return response()->json([
-            'mensaje' => 'Imagen agregada'
+            'mensaje' => 'Imagen agregada',
+            'imagen' => $imagen
         ], 201);
     }
 
